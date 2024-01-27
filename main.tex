@@ -24,7 +24,7 @@
     \item Initially, each player is given $\lfloor\frac{52}{n}\rfloor$, and $52 \bmod n$ cards are placed in the pot.
     \section{Defining a Player}
     \item Let the hand of $i$ be represented by a set $\{p_{i 1}, p_{i 2}, ..., p_{i 12}, p_{i 13}\}$ where $p_{i r}$ is the number of cards of type $r$, and $i$ is the player.
-    \item Assume $\forall_{j}\sum_{i=1}^{n} p_ij = 4$
+    \item Assume $\forall_{j}\sum\limits_{i=1}^{n} p_ij = 4$
     \section{Defining the pot}
     \item Let the pot be represented as player $\gamma$
     \section{Defining a Turn}
@@ -60,6 +60,6 @@
     \item We must count the number of ways in which player $i$ can hold $k_t$ cards, which is ${n-1 \choose k_t}$
     \linebreak
     \item This means that in the most naive case, the probability of player $i$ having exactly $k_t$ cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
-    \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
+    \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
 \end{description}
 \end{document}
