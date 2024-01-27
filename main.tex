@@ -59,6 +59,7 @@
     \item We must count the number of ways in which players $j$ such that $j\neq i$ can hold, which is ${1-p_{0 \alpha_{t}} - k_t + n \choose n-3}$ 
     \item We must count the number of ways in which player $i$ can hold $k_t$ cards, which is ${n-1 \choose k_t}$
     \linebreak
-    \item This means that in the most naive case, the probability of player $i$ having p cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
+    \item This means that in the most naive case, the probability of player $i$ having exactly $k_t$ cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
+    \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
 \end{description}
 \end{document}
