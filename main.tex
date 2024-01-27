@@ -1,0 +1,57 @@
+\documentclass[letterpaper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern, amsmath, amsfonts, amssymb,amsthm,graphicx,color,xcolor,url,theorem,textcomp,glossaries,parskip,hyperref}
+
+\title{Analyzing the Card Game BS}
+\author{Iniyan Joseph}
+\date{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Rules of the Game}
+\begin{description}
+    \section{Objective of the Game}
+    \item [Objective] In this game, each player ($i$) has the objective of disposing of all of their cards.
+    \section{Setup of the Game}
+    \item Let there be $n$ players, $3\leq n\leq 7, n\in\mathbb{N}$.
+    \item Let there be a shared pot into which players may discard cards.
+    \item Let there be a global type $\alpha$, defined as $\alpha_{0} = 1; \alpha_{t} = (\alpha_{t-1} \bmod 13) + 1$.
+    \item The game uses a deck of 52 cards consisting of 4 suites. Each suite is $\{x | x \in \mathbb{N} \and x \in [1, 13] \}$.
+    \item Initially, each player is given $\lfloor\frac{52}{n}\rfloor$, and $52 \bmod n$ cards are placed in the pot.
+    \section{Defining a Player}
+    \item Let the hand of $i$ be represented by a set $\{p_{i 1}, p_{i 2}, ..., p_{i 12}, p_{i 13}\}$ where $p_{i r}$ is the number of cards of type $r$, and $i$ is the player.
+    \item Assume $\forall_{j}\sum_{i=1}^{n} p_ij = 4$
+    \section{Defining the pot}
+    \item Let the pot be represented as player $\gamma$
+    \section{Defining a Turn}
+    \item Play is conducted counter-clockwise, and no player may be skipped.
+    \item In a turn, consider the players $i$ and $j, i \neq j$.
+    \item Let a turn ($t$) consist of the following sequence:
+    \begin{enumerate}
+        \item Player $i$ discards $k_t$ cards; $k_t \in [1,4], k_t \in \mathbb{N}$
+        \item Player $j$ may "call BS"
+        \begin{enumerate}
+            \item $\forall type(k_t) = \alpha_t \rightarrow$ j must take the pot
+            \item $\exists type(k_t) \neq \alpha_t \rightarrow$ i must take the pot
+        \end{enumerate}
+    \end{enumerate}
+    \section{The Problem}
+    \paragraph{} Assume you are player 1 $p_{1 r}$. We must calculate $P(p_{i \alpha_t} \geq k_t)$
+\end{description}
+\chapter{Describing the Initial State with $\forall_{i\in\gamma} i = 0$}
+\section{Assumptions} 
+\paragraph*{} To begin, let us find a formula to compute the relevant probability given the pot is empty and that there is no other information provided.
+\paragraph*{Relevant Variables} The number of cards to distribute between $n-1$ players is $4-p_{0 \alpha_{t}}$. The number of cards player $i$ places is $k_t$, and the true amount they hold is $p_{i \alpha_t}$.
+\begin{description}
+    \item In general, to split $y$ items among $z$ people, There are ${y+z-1 \choose z-1}$ ways.
+    \item We must count the number of ways in which $4-p_{0 \alpha_{t}}$ may be distributed between $n-1$ players. This is ${2-p_{0 \alpha_{t}} + n \choose n-2}$
+    \item We must count the number of ways in which players $j$ such that $j\neq i$ can hold, which is ${1-p_{0 \alpha_{t}} - k_t + n \choose n-3}$ 
+    \item We must count the number of ways in which player $i$ can hold $k_t$ cards, which is ${n-1 \choose k_t}$
+    \linebreak
+    \item This means that in the most naive case, the probability of player $i$ having p cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
+\end{description}
+\end{document}
