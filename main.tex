@@ -41,6 +41,13 @@
     \end{enumerate}
     \section{The Problem}
     \paragraph{} Assume you are player 1 $p_{1 r}$. We must calculate $P(p_{i \alpha_t} \geq k_t)$
+    \section{Levels of Thought}
+    \begin{enumerate}
+        \item The pot is empty and we have no knowledge of the player's cards.
+        \item If a player $i$ tells the truth and player $j$ calls bluff in turn $t$, player $j$ definitely holds $k_t$ cards of type $\alpha_t$.
+        \item The pot is treated as another player to whom cards are given in each turn
+        \item The pot definitely holds the cards that you have placed into it in your previous turns, and when the pot is taken by a player $i$, $i$ definitely holds those cards.
+    \end{enumerate}
 \end{description}
 \chapter{Describing the Initial State with $\forall_{i\in\gamma} i = 0$}
 \section{Assumptions} 
