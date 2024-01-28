@@ -62,4 +62,14 @@
     \item This means that in the most naive case, the probability of player $i$ having exactly $k_t$ cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
     \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
 \end{description}
+\chapter{Considering information about a player}
+\paragraph*{} Throughout the game, we constantly gain information about each player. The first case in which you gain information is as follows. Consider a turn where player $i$ puts down $k_t$ cards of type $\alpha_t$, and player $j$ calls bluff. If player $j$ must take the pot, they definitely are holding $k_t$ cards of type $\alpha_t$. Their player count can be updated such that $p_{j \alpha_t}$ becomes $(p+k_t)_{j \alpha_t}$. Let this turn be denoted as $t*$
+\paragraph{} We need to use this information to update our previous formula.
+\begin{description}
+    \item Instead of $p_{0 \alpha_{t}}$, we must use $\sum\limits_{i=0}^{n}p_{i \alpha_{t*}}$
+    \item Remember, we must distribute the remaining cards in the same manner, because the player may have been holding some cards of type $\alpha_t$ before the turn.
+    \item $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-\sum\limits_{i=0}^{n}p_{i \alpha_{t*}} - k_t + n \choose n-3}}{{2-\sum\limits_{i=0}^{n}p_{i \alpha_{t*}} + n \choose n-2}}$
+    \item Of course, this ignores if the player making the move is also player $j$, since they definitely have those cards. To fix this, we must add back $k_{t*}$ back. 
+   %\item $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-\sum\limits_{i=0}^{n}p_{i \alpha_{t}} - k_t + n \choose n-3}}{{2-\sum\limits_{i=0}^{n}p_{i \alpha_{t}} + n \choose n-2}}$
+\end{description}
 \end{document}
