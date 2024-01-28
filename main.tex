@@ -24,7 +24,7 @@
     \item Initially, each player is given $\lfloor\frac{52}{n}\rfloor$, and $52 \bmod n$ cards are placed in the pot.
     \section{Defining a Player}
     \item Let the hand of $i$ be represented by a set $\{p_{i 1}, p_{i 2}, ..., p_{i 12}, p_{i 13}\}$ where $p_{i r}$ is the number of cards of type $r$, and $i$ is the player.
-    \item Assume $\forall_{j}\sum\limits_{i=1}^{n} p_ij = 4$
+    \item Assume $\forall_{j}\sum\limits_{i=1}^{n} p_{ij} = 4$
     \section{Defining the pot}
     \item Let the pot be represented as player $\gamma$
     \section{Defining a Turn}
@@ -35,8 +35,8 @@
         \item Player $i$ discards $k_t$ cards; $k_t \in [1,4], k_t \in \mathbb{N}$
         \item Player $j$ may "call BS"
         \begin{enumerate}
-            \item $\forall type(k_t) = \alpha_t \rightarrow$ j must take the pot
-            \item $\exists type(k_t) \neq \alpha_t \rightarrow$ i must take the pot
+            \item $\forall_{i\in k_t} type(i) = \alpha_t \rightarrow$ j must take the pot
+            \item $\exists_{i\in k_t} type(i) \neq \alpha_t \rightarrow$ i must take the pot
         \end{enumerate}
     \end{enumerate}
     \section{The Problem}
