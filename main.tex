@@ -17,16 +17,16 @@
     \section{Objective of the Game}
     \item [Objective] In this game, each player ($i$) has the objective of disposing of all of their cards.
     \section{Setup of the Game}
-    \item Let there be $n$ players, $3\leq n\leq 7, n\in\mathbb{N}$.
-    \item Let there be a shared pot into which players may discard cards.
-    \item Let there be a global type $\alpha$, defined as $\alpha_{0} = 1; \alpha_{t} = (\alpha_{t-1} \bmod 13) + 1$.
-    \item The game uses a deck of 52 cards consisting of 4 suites. Each suite is $\{x | x \in \mathbb{N} \and x \in [1, 13] \}$.
-    \item Initially, each player is given $\lfloor\frac{52}{n}\rfloor$, and $52 \bmod n$ cards are placed in the pot.
+    \item Let there be $n$ players, $3\leq n\leq 7$.
+    \item Let there be a shared table into which players may discard cards.
+    \item Let there be a global number $\alpha$, defined as $\alpha_{0} = 1; \alpha_{t} = (\alpha_{t-1} \bmod 13) + 1$.
+    \item The game uses a deck of 52 cards consisting of 4 suites, with exactly $13$ cards in each suite. 
+    \item Initially, each player is given $\lfloor\frac{52}{n}\rfloor$, and the remaining $52 \bmod n$ cards are placed on the table.
     \section{Defining a Player}
-    \item Let the hand of $i$ be represented by a set $\{p_{i 1}, p_{i 2}, ..., p_{i 12}, p_{i 13}\}$ where $p_{i r}$ is the number of cards of type $r$, and $i$ is the player.
-    \item Assume $\forall_{j}\sum\limits_{i=1}^{n} p_{ij} = 4$
-    \section{Defining the pot}
-    \item Let the pot be represented as player $\gamma$
+    \item Let the hand of player $i$ be represented by a set $\{p_{i, 1}, p_{i, 2}, ..., p_{i, 12}, p_{i, 13}\}$ where $p_{i, r}$ is the number of cards of type $r$.
+    \item Assume there are 4 cards of each number: $\forall_{j}\sum\limits_{i=1}^{n} p_{ij} = 4$
+    \section{Defining the table}
+    \item Let the table be represented as player $n+1$
     \section{Defining a Turn}
     \item Play is conducted counter-clockwise, and no player may be skipped.
     \item In a turn, consider the players $i$ and $j, i \neq j$.
@@ -35,23 +35,23 @@
         \item Player $i$ discards $k_t$ cards; $k_t \in [1,4], k_t \in \mathbb{N}$
         \item Player $j$ may "call BS"
         \begin{enumerate}
-            \item $\forall_{i\in k_t} type(i) = \alpha_t \rightarrow$ j must take the pot
-            \item $\exists_{i\in k_t} type(i) \neq \alpha_t \rightarrow$ i must take the pot
+            \item $\forall_{i\in k_t} type(i) = \alpha_t \rightarrow$ j must take the table
+            \item $\exists_{i\in k_t} type(i) \neq \alpha_t \rightarrow$ i must take the table
         \end{enumerate}
     \end{enumerate}
     \section{The Problem}
     \paragraph{} Assume you are player 1 $p_{1 r}$. We must calculate $P(p_{i \alpha_t} \geq k_t)$
     \section{Levels of Thought}
     \begin{enumerate}
-        \item The pot is empty and we have no knowledge of the player's cards.
+        \item The table is empty and we have no knowledge of the player's cards.
         \item If a player $i$ tells the truth and player $j$ calls bluff in turn $t$, player $j$ definitely holds $k_t$ cards of type $\alpha_t$.
-        \item The pot is treated as another player to whom cards are given in each turn
-        \item The pot definitely holds the cards that you have placed into it in your previous turns, and when the pot is taken by a player $i$, $i$ definitely holds those cards.
+        \item The table is treated as another player to whom cards are given in each turn
+        \item The table definitely holds the cards that you have placed into it in your previous turns, and when the table is taken by a player $i$, $i$ definitely holds those cards.
     \end{enumerate}
 \end{description}
 \chapter{Describing the Initial State with $\forall_{i\in\gamma} i = 0$}
 \section{Assumptions} 
-\paragraph*{} To begin, let us find a formula to compute the relevant probability given the pot is empty and that there is no other information provided.
+\paragraph*{} To begin, let us find a formula to compute the relevant probability given the table is empty and that there is no other information provided.
 \paragraph*{Relevant Variables} The number of cards to distribute between $n-1$ players is $4-p_{0 \alpha_{t}}$. The number of cards player $i$ places is $k_t$, and the true amount they hold is $p_{i \alpha_t}$.
 \begin{description}
     \item In general, to split $y$ items among $z$ people, There are ${y+z-1 \choose z-1}$ ways.
@@ -60,16 +60,16 @@
     \item We must count the number of ways in which player $i$ can hold $k_t$ cards, which is ${n-1 \choose k_t}$
     \linebreak
     \item This means that in the most naive case, the probability of player $i$ having exactly $k_t$ cards is  $\frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$
-    \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
+    \item We must compute the probability from $k_t$ up to $4$, since a player may have more cards than what they play. $\sum\limits_{k_t}^{4-p_{0 \alpha_{t}}} \frac{{n-1 \choose k_t}\ast{1-p_{0 \alpha_{t}} - k_t + n \choose n-3}}{{2-p_{0 \alpha_{t}} + n \choose n-2}}$ 
 \end{description}
-\chapter{Considering information about a player}
-\paragraph*{} Throughout the game, we constantly gain information about each player. The first case in which you gain information is as follows. Consider a turn where player $i$ puts down $k_t$ cards of type $\alpha_t$, and player $j$ calls bluff. If player $j$ must take the pot, they definitely are holding $k_t$ cards of type $\alpha_t$. Their player count can be updated such that $p_{j \alpha_t}$ becomes $(p+k_t)_{j \alpha_t}$. Let this turn be denoted as $t*$
-\paragraph{} We need to use this information to update our previous formula.
-\begin{description}
-    \item Instead of $p_{0 \alpha_{t}}$, we must use $\sum\limits_{i=0}^{n}p_{i \alpha_{t*}}$
-    \item Remember, we must distribute the remaining cards in the same manner, because the player may have been holding some cards of type $\alpha_t$ before the turn.
-    \item $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-\sum\limits_{i=0}^{n}p_{i \alpha_{t*}} - k_t + n \choose n-3}}{{2-\sum\limits_{i=0}^{n}p_{i \alpha_{t*}} + n \choose n-2}}$
-    \item Of course, this ignores if the player making the move is also player $j$, since they definitely have those cards. To fix this, we must add back $k_{t*}$ back. 
-   %\item $\sum\limits_{k_t}^{4} \frac{{n-1 \choose k_t}\ast{1-\sum\limits_{i=0}^{n}p_{i \alpha_{t}} - k_t + n \choose n-3}}{{2-\sum\limits_{i=0}^{n}p_{i \alpha_{t}} + n \choose n-2}}$
-\end{description}
+\chapter{Limitations on the Player}
+\paragraph{} When distributing cards, consider the limitations on the player $i, i\neq 0$. $i$ cannot hold more cards of type k than the number of cards $i$ is holding. $i$ also cannot hold more than 4 cards of type $k_t$. Finally, $i$ cannot hold more than 4-(the cards known to be held by all players $\neq i$).  
+\paragraph{} For counting, $i$ must be holding at least $k_t$ cards. If $i$ is known to be holding more than $k_t$ cards of type $\alpha_t$, then $i$ cannot hold less than that number of cards.
+
+\paragraph{} Consider the total number of ways in which cards can be distributed between all players $\neq 0$. 
+\paragraph{} More than 4 cards cannot be distributed. In addition, the most cards that can be distributed (in such a way that $i$ is also relevant) must be less than $\sum{known_{\neq i}- 1$. The maximum number of cards distributed to all players cannot be more than the number of cards $i$ is holding. 
+\paragraph{} At least 0 cards must be distributed. It is impossible to distribute such that $i$ is holding less than what $i$ is known to hold. Thus, we must distribute at least $known_i - 1$.
+$f(r) = 0$
+\paragraph{} Based on these bounds, this gives us the formula as follows.
+$\frac{\sum\limits_{r=\max(known, k)}^(\min(held_i, 4-\sum{known_{\neq i}}, 4)} f(r)}{\sum\limits_{r=\max(known_i-1, 0)}^{\min(held_i,4-\sum{known_{\neq i}}, 4)} f(r)}$
 \end{document}
