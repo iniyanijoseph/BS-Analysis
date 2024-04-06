@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{theorem}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{parskip}
+
+\title{Bluff}
+\author{Iniyan Joseph}
+
+\begin{document}
+
+
+\maketitle
+% \tableofcontents
+
+\begin{abstract}
+\end{abstract}
+
+\section{Introduction}
+\section{Rules}
+\begin{description}
+    \subsection{Setup}
+    \item Let there be $n$ players, $3\leq n\leq 7$.
+    \item [Objective] Each player ($i$)'s objective is to dispose of all of their cards.
+    \item Let there be a shared table into which players may discard cards.
+    \item Let there be a global counter $\alpha$, defined as $\alpha_{0} = 1 \\ \alpha_{t} = (\alpha_{t-1} \bmod 13) + 1$.
+    \item The game uses a standard deck of playing cards without jokers. 
+    \subitem A deck consists of 52 cards consisting of 4 suites, with $13$ cards in each suite numbered from $1$ to $13$. 
+    \item Initially, the cards are divided evenly between all players s.t. each player has $\lfloor\frac{52}{n}\rfloor$. The excess  $52 \bmod n$ cards are placed on the table
+    \section{Defining a Player}
+    \item Let the true distribution of cards for card $\alpha$ held be $T(\alpha)$. 
+    \item Let the known distribution of cards for card $\alpha$ held be $K(\alpha)$
+    \item Assume there are 4 cards of each number: $\forall_{a \in [1, 13]}\sum T(a) = 4$
+    \section{Defining the table}
+    \item Let the table be represented as player $i=0$, and the remaining players be $i=1, 2,..., n$
+    \section{Defining a Turn}
+    \item Play is conducted counter-clockwise, and no player may be skipped.
+    \item In a turn, consider the distinct players $i$ and $j$.
+    \item Let a turn ($t$) consist of the following sequence:
+    \begin{enumerate}
+        \item Player $i$ discards $p_t$ cards. $p_t \in [1,4]$
+        \item Player $j$ may "call BS"
+        \begin{enumerate}
+            \item $\forall_{i\in p_t} type(i) = \alpha_t \iff $ $j$ must take the table
+            \item $\exists_{i\in k_t} type(i) \neq \alpha_t \iff $ $i$ must take the table
+            
+            \subitem When $i$ takes the table, $\forall_{a \in [1, n]} \\ T(a)_i = T(a)_i + T(a)_0; T(a)_0 = 0$
+        \end{enumerate}
+    \end{enumerate}
+    \section{The Problem}
+    \paragraph{} We must find $P(T(\alpha_t)_{i} \geq p_t)$
+
+\end{description}
+
+\section{Initial Game State}
+$\mathbf{Equation~1}$ The number of solutions to the equation $\sum {a_r} = b, a_r \geq r = {{b - \sum r + |a| - 1}\choose{b}}$
+Thus \\
+$\sum K(\alpha_t) + \sum T(\alpha_t) = 4$\\
+$N(S) = {{4-\sum S + |S| - 1}\choose{|S|-1}}$\\
+\\
+Let $K(\alpha_t)' = \{K(\alpha_t)_0, K_1, ... , K(\alpha_t)_{i-1}, p_t, K(\alpha_t)_{i+1}, ... , K(\alpha_t)_{n-1}, K(\alpha_t)_{n}\}$ \\ 
+$P(T(\alpha_t)_{i} \geq p_t) = \frac{f(K')}{f(K)}$
+\section{Conclusion}
+
+\end{document}
