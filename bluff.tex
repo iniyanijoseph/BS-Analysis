@@ -27,10 +27,6 @@
 
 
 \maketitle
-% \tableofcontents
-
-\begin{abstract}
-\end{abstract}
 
 \section{Introduction}
 \section{Rules}
@@ -68,14 +64,22 @@
 
 \end{description}
 
+$\mathbf{Equation~1}$ The number of solutions to the equation $\sum {a_r} = b, a_r \geq r = {{b - \sum r + |a| - 1}\choose{|a| - 1}}$\\
 \section{Initial Game State}
-$\mathbf{Equation~1}$ The number of solutions to the equation $\sum {a_r} = b, a_r \geq r = {{b - \sum r + |a| - 1}\choose{b}}$
-Thus \\
-$\sum K(\alpha_t) + \sum T(\alpha_t) = 4$\\
-$N(S) = {{4-\sum S + |S| - 1}\choose{|S|-1}}$\\
+The number of cards at the table can be seen as $\sum K(\alpha_t) + \sum T(\alpha_t) = 4$\\ s.t. $\forall_i K(\alpha_t)_i \geq K(\alpha_t)_i$\\
+Applying equation 1, we may solve the equation with unknowns of $T$ for the n+1 players.\\
+Let the function $\eta(S) = {{4-\sum S + |S| - 1}\choose{|S|-1}}$ where S is the set of known cards. % This must be expanded to consider the knowledge of 1 player 
 \\
 Let $K(\alpha_t)' = \{K(\alpha_t)_0, K_1, ... , K(\alpha_t)_{i-1}, p_t, K(\alpha_t)_{i+1}, ... , K(\alpha_t)_{n-1}, K(\alpha_t)_{n}\}$ \\ 
-$P(T(\alpha_t)_{i} \geq p_t) = \frac{f(K')}{f(K)}$
+$P(T(\alpha_t)_{i} \geq p_t) = \frac{\eta(K')}{\eta(K)}$ 
+\section{Additional Information}
+To gain more information about players (and thus update the set $K$ to have non-zero values), there are exactly 2 cases in which information is revealed.
+
+\begin{enumerate}
+	\item If a player j calls "BS" and the player i was truthful, the condition holds that $\forall_{i\in p_t} type(i) = \alpha_t \iff $ $j$ must take the table. At this point, $K(\alpha_t)_j$ must increase by $p_t$, as $j$ is definitely holding their cards. 
+	\item If you, the player, place a card of value $r$ in the the table, then until someone takes the table, $K(r)_0$ must increase by 1. Similarly, if the table is taken by another player $j$, those cards are now held by $j$ instead of $0$/the table. 
+	
+\end{enumerate} 
 \section{Conclusion}
 
 \end{document}
